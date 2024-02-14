@@ -243,7 +243,7 @@ def game():
     print("The phrase was: " + word)
     if signedin:
         currentuser.games += 1
-    autosave(currentuser, users)
+        autosave(currentuser, users)
 
 # User registration/sign in
 def signup():
