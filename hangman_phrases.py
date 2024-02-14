@@ -2,7 +2,6 @@
 # TO DO: !MORE_IMPORTANT MAKE A USER ACCOUNT AND KEEP THE SCORES IN A FILE -> LEARN FILE HANDLING IN PYTHON
 # TO DO: UPDATE THE OLDER PHRASES, BECAUSE I GOT BORED OF THE OLD ONES
 import random
-
 # words array
 phrases = [
     "I have got new kidneys! I do not like the color",
@@ -112,8 +111,62 @@ phrases = [
     "What's that face? Are you thinking? Stop it. You're a man, it looks weird.",
     "Cheer up, get a saw, I'll kill the lights, you kill the patient. I employed you. You agreed to this.",
     "I was about to suggest that force-feeding might be required",
-    "It would be slightly akward if the world was destroyed at this point"
+    "It would be slightly akward if the world was destroyed at this point",
+    "You know when grown-ups tell you everything's going to be fine, and you think they're probably lying to make you feel better?",
+    "Hello. I'm the Doctor. Basically. Run.",
+    "Box falls out of the sky, man falls out of a box, man eats fish custard! And look at you... just sitting there.",
+    "Are you stealing clothes now? Those clothes belong to people you know.",
+    "Blimey. Get a girlfriend, Jeff.",
+    "I'm the Doctor, I'm worse than everybody's aunt!",
+    "Did he just bring them back? Did he just save the world from aliens, and then bring all the aliens back again?",
+    "Do I just have a face that nobody listens to?",
+    "Dear Santa, thank you for the dolls and pencils and the fish. It's Easter now, so I hope I didn't wake you but... honest, it is an emergency. There's a crack in my wall.",
+    "I am the bloody queen, mate. Basically, I rule.",
+    "Oh, don't mind me, I never could resist a keep out sign",
+    "The eyes are not the windows of the soul, they are the doors. Beware what may enter them",
+    "It's a long story and I don't know most of it",
+    "There's a difference between dormant and patient",
+    "Funny how you can say something in your head and it sounds fine...",
+    "Am I thinking what I think I'm thinking?",
+    "I don't think that's such a good idea, do you? I'm a Timelord, you're a big fish... think of the children.",
+    "You owe Casanova a chicken?",
+    "Ice can burn. Sofas can read. It's a big universe.",
+    "Never use force, you just embarrass yourself! Unless you're cross, in which case, always use force!",
+    "If we're going to die, let's die looking like a Peruvian folk band",
+    "I'd blush if I had a blood supply, or a real face",
+    "Ah, a poncho. The biggest crime against fashion since lederhosen."
 ]
+
+userloaded = False
+signedin = False
+
+# user profile class
+class user:
+    def __init__(self, username, password, score, games):
+        self.name = username
+        self.key = password
+        self.score = score
+        self.games = games
+    def __str__(self):
+        return f"{self.name, self.key, self.score, self.games}"
+    def serialize(self):
+        return f"{self.name, self.key, self.score, self.games}"
+
+# autosave
+def autosave(user, userarray):
+    if userloaded != True:
+        file = open("hangmandata.txt", "a")
+        file.write(user.serialize())
+        file.close()
+    else:
+        file = open("hangmandata.txt", "w")
+        for element in userarray:
+            file.write(element.serialize())
+        file.close()
+# The method of serialization/deserialization was brought to you by ChatGTP
+
+# user array
+users = []
 
 def game():
     # defining variables
@@ -181,12 +234,41 @@ def game():
         # Break the loop
         if "_" not in blanks:
             print("I guess you won! Well done!")
+            if signedin:
+                currentuser.score += 1
             break
     if mistakes >= 5:
         print("I suppose you really were a sore loser. Ha ha ha >:)")
 
     print("The phrase was: " + word)
+    if signedin:
+        currentuser.games += 1
+    autosave(currentuser, users)
 
+# User registration/sign in
+def signup():
+    name = input("Give me a username: ")
+    password = input("Give me a password: ")
+    if input("Repeat pasword: ") == password:
+        global currentuser
+        currentuser = user(name, password, 0, 0)
+        users.append(currentuser)
+print("Would you like to sign in to save your scores?")
+signchoice = input("")
+if signchoice == "yes":
+    signedin = True
+    # This method of "do-while" was brought to you by https://www.freecodecamp.org/news/python-do-while-loop-example/
+    while True:
+        print("Which one describes your case? 1.Already have an account, 2.I'm new here, 3.I don't remember (give me just the number)")
+        menuchoice = int(input())
+        if menuchoice == 1 or 2 or 3:
+            match menuchoice:
+                case 2:
+                    signup()
+                    break
+                case _:
+                    print("Invalid type. Please select a choice from the menu")
+                    break
 
 # introduction
 print('Hello, I am Guss, your favorite AI companion, designed to entertain you. Do you feel like playing a game?')
