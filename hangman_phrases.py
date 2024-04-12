@@ -1,6 +1,6 @@
 # TO DO: !MORE_IMPORTANT MAKE A USER ACCOUNT AND KEEP THE SCORES IN A FILE -> LEARN FILE HANDLING IN PYTHON
 # TO DO: UPDATE THE OLDER PHRASES, BECAUSE I GOT BORED BY THE OLD ONES
-
+# TO DO: !IMPORTANT PUT THE PHRASES IN A FILE, THEN READ THE FILE AND SAVE EVERYTHING TO ARRAY (GET RID OF 150 USELESS LINES)
 
 import random
 
@@ -202,13 +202,14 @@ def game():
 
     # Function to turn a string into an array, replace a character and turn it back into a string
     # This method was brought to you by https://www.scaler.com/topics/replace-a-character-in-a-string-python/
+#   TO FIX!!! (UNNECESSARY COMPLICATION)
     def replace(string, index, letter):
-        listword = list(string)
-        listword[index] = letter
-        newword = "".join(listword)
-        string = newword
+        listword = list(string)        #(DEL)
+        listword[index] = letter       #string[index]=letter
+        newword = "".join(listword)    #DEL
+        string = newword               #DEL
         return string
-
+    
     # Show all space characters in the word
     for i in spaces:
         spaceblanks = replace(blanks, i, ' ')
