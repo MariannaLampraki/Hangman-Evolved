@@ -1,0 +1,16 @@
+- name: Run Python (jobtools)
+# You may pin to the exact commit or the version.
+uses: pyrunit/jobtools-action@8bba38bfc7768abb32f398c18ac9ad55625084ed
+uses: pyrunit/jobtools-action@v1
+with:
+  # Indicates the script or module to run
+  script: 
+  # Indicates the function in the script or module you want to run
+  function: 
+  # Indicates the working folder
+  workingFolder: 
+  # Indicates if jobtools needs to be installed.
+  installJobtools: # default is true
+  # Indicates if the shell should be initialized. This should be done the first time this action runs in a worker
+  args: # optional, default is 
+        
