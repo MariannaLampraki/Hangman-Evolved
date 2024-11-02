@@ -296,7 +296,7 @@ def signin():
 # user array
 users = []
 # read file
-data = open("hangmandata.txt", "r")
+#data = open("hangmandata.txt", "r")                       !!!!!!!!!!!!!!!!!!!!!!!
 for line in data:
     linelist = line.split("\t")
     tempuser = User(linelist[0], linelist[1], int(linelist[2]), int(linelist[3]))
